@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #003366;
+  }
+  
+  input, button {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px 5px;
+  }
+  
+  img {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 6px;
+  }
+  
+  .topic {
+    background: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-left: 5px solid #003366;
+    border-radius: 6px;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  li {
+    background: #e9f2fb;
+    margin: 10px 0;
+    padding: 10px;
+    border-left: 4px solid #007acc;
+  }
+  

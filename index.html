@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardiff Open Day</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans p-6">
+    <section class="shadow-md rounded-lg overflow-hidden mb-10">
+        <div class="relative bg-cover bg-center text-white py-16 px-6 sm:px-12 text-center"
+             style="background-image: url('https://www.cardiff.ac.uk/__data/assets/image/0003/226579/Cardiff_Uni_Campus.jpg');">
+          <div class="bg-black/50 p-6 rounded-lg inline-block">
+            <!-- Bigger Logo with border and shadow -->
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQlD-9WH8G-cFim85IdGx2XEudxtHE9K3gFw&s"
+                 alt="Cardiff University logo"
+                 class="w-48 sm:w-56 mx-auto mb-6 border-4 border-white rounded-full shadow-lg" />
+            
+            <h2 class="text-3xl sm:text-4xl font-bold mb-2 text-shadow-md">Welcome to the Open Day</h2>
+            <p class="text-lg mb-4">We’re excited to show you what Cardiff University has to offer. Join us to explore our campus and programs.</p>
+      
+            <!-- CTA Button -->
+            <a href="#programs" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+              Explore Programs
+            </a>
+          </div>
+        </div>
+      </section>
+      
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold text-blue-900 mb-6">Cardiff University Open Day</h1>
+
+    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+      <input id="search" type="text" placeholder="Search programs..." class="flex-1 p-3 border border-gray-300 rounded-md" />
+      <select id="sort-select" onchange="sortPrograms()" class="p-3 border border-gray-300 rounded-md mb-4">
+        <option value="time">Sort by Start Time</option>
+        <option value="name">Sort by Program Name (A–Z)</option>
+      </select>
+           
+    </div>
+
+    <div id="content" class="space-y-6"></div>
+  </div>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>

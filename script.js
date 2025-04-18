@@ -25,31 +25,42 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('globalSearch').addEventListener("input", function () {
     currentQuery = this.value.toLowerCase();
     if (!openDayData) return;
-  
+
+    const searchTitle = document.getElementById("searchResultsTitle");
+    if (!searchTitle) {
+      const titleEl = document.createElement("h2");
+      titleEl.id = "searchResultsTitle";
+      titleEl.className = "text-lg font-semibold mb-4";
+      document.getElementById("subject-list").before(titleEl);
+    }
+
     // If query is empty, show welcome section again
     if (currentQuery.trim() === "") {
       showSection("welcome");
+      document.getElementById("searchResultsTitle").textContent = "";
       return;
     }
-  
+
     const filteredTopics = openDayData.topics.map(topic => {
       const topicMatch = topic.name.toLowerCase().includes(currentQuery) || topic.description.toLowerCase().includes(currentQuery);
       const filteredPrograms = topic.programs.filter(program =>
         program.title.toLowerCase().includes(currentQuery) ||
         (program.location && program.location.title.toLowerCase().includes(currentQuery))
       );
-  
+
       return {
         ...topic,
         programs: topicMatch ? topic.programs : filteredPrograms
       };
     }).filter(t => t.programs.length > 0);
-  
+
     showSection('subjects');
+    document.getElementById("searchResultsTitle").textContent = filteredTopics.length > 0
+      ? `Showing results for: "${currentQuery}"`
+      : `No results found for "${currentQuery}"`;
     renderSubjects(filteredTopics);
     renderAllEvents(filteredTopics);
   });
-  
 
   // Event-specific search input
   document.getElementById("searchInput").addEventListener("input", function () {
@@ -66,6 +77,19 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
     showSection('events');
+
+    const eventListTitle = document.getElementById("eventSearchTitle");
+    if (!eventListTitle) {
+      const h2 = document.createElement("h2");
+      h2.id = "eventSearchTitle";
+      h2.className = "text-lg font-semibold mb-4";
+      document.getElementById("event-list").before(h2);
+    }
+
+    document.getElementById("eventSearchTitle").textContent = filteredPrograms.length > 0
+      ? `Results for: "${query}"`
+      : `No events match "${query}"`;
+
     renderAllEventsFromFlatList(filteredPrograms);
   });
 
@@ -74,6 +98,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById("searchInput");
     input.value = "";
     input.dispatchEvent(new Event("input"));
+  });
+
+  // Sorting
+  document.getElementById("sort-select").addEventListener("change", function () {
+    sortPrograms(this.value);
   });
 });
 
@@ -148,6 +177,7 @@ function renderProgramDetail(topicIndex, programIndex, topics) {
       <p><strong>Program Type:</strong> ${program.type}</p>
       <p><strong>Start Time:</strong> ${new Date(program.start_time).toLocaleString()}</p>
       <p><strong>End Time:</strong> ${new Date(program.end_time).toLocaleString()}</p>
+      <p><strong>Room:</strong> ${program.room || "TBA"}</p>
     </div>
 
     <div class="mb-4">
@@ -159,8 +189,8 @@ function renderProgramDetail(topicIndex, programIndex, topics) {
 // 🚀 Render All Events
 function renderAllEvents(topics) {
   const container = document.getElementById("event-list");
-  container.innerHTML = ""; // Reset content
-  
+  container.innerHTML = "";
+
   topics.forEach(topic => {
     topic.programs.forEach(program => {
       const card = document.createElement("div");
@@ -179,7 +209,7 @@ function renderAllEvents(topics) {
 // 🚀 Render All Events from Flat List
 function renderAllEventsFromFlatList(filteredPrograms) {
   const container = document.getElementById("event-list");
-  container.innerHTML = ""; // Reset content
+  container.innerHTML = "";
 
   filteredPrograms.forEach((program) => {
     const card = document.createElement("div");
@@ -195,41 +225,54 @@ function renderAllEventsFromFlatList(filteredPrograms) {
 }
 
 // Sort Functionality
-function sortPrograms() {
-  const selectedSort = document.getElementById("sort-select").value;
-  
-  if (selectedSort === "time") {
-    const sortedEvents = openDayData.topics.map(topic => ({
+function sortPrograms(sortBy) {
+  let sortedEvents;
+
+  if (sortBy === "time") {
+    // Sort by time: from earliest to latest
+    sortedEvents = openDayData.topics.map(topic => ({
       ...topic,
-      programs: topic.programs.sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
+      programs: topic.programs.slice().sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
     }));
-    renderAllEvents(sortedEvents);
-  } else if (selectedSort === "name") {
-    const sortedEvents = openDayData.topics.map(topic => ({
+  } else if (sortBy === "location") {
+    // Sort by location: Group by location alphabetically
+    sortedEvents = openDayData.topics.map(topic => ({
       ...topic,
-      programs: topic.programs.sort((a, b) => a.title.localeCompare(b.title))
+      programs: topic.programs.slice().sort((a, b) => {
+        const locationA = a.location ? a.location.title.toLowerCase() : '';
+        const locationB = b.location ? b.location.title.toLowerCase() : '';
+        return locationA.localeCompare(locationB);
+      })
     }));
-    renderAllEvents(sortedEvents);
+  } else if (sortBy === "name") {
+    // Sort by name: Alphabetically by event title
+    sortedEvents = openDayData.topics.map(topic => ({
+      ...topic,
+      programs: topic.programs.slice().sort((a, b) => a.title.localeCompare(b.title))
+    }));
   }
+
+  // After sorting, render the events
+  renderAllEvents(sortedEvents);
 }
 
 // Refresh Button
 document.getElementById("refreshBtn").addEventListener("click", function () {
-  location.reload(); // Reloads the page
+  location.reload();
 });
 
 // Show the Contact Form Modal
-document.getElementById("contactBtn").addEventListener("click", function() {
+document.getElementById("contactBtn").addEventListener("click", function () {
   document.getElementById("contactModal").classList.remove("hidden");
 });
 
 // Close the Modal
-document.getElementById("closeModal").addEventListener("click", function() {
+document.getElementById("closeModal").addEventListener("click", function () {
   document.getElementById("contactModal").classList.add("hidden");
 });
 
-// Handle Form Submission (Send Email)
-document.getElementById("contactForm").addEventListener("submit", function(event) {
+// Handle Form Submission
+document.getElementById("contactForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
   const name = document.getElementById("name").value;
@@ -238,12 +281,12 @@ document.getElementById("contactForm").addEventListener("submit", function(event
 
   const mailtoLink = `mailto:support@cardiffopen.day?subject=Question from ${name}&body=Name: ${name}%0D%0AEmail: ${email}%0D%0AMessage:%0D%0A${encodeURIComponent(message)}`;
 
-  // Open the default email client with the pre-filled message
   window.location.href = mailtoLink;
-
-  // Close the modal after submitting
   document.getElementById("contactModal").classList.add("hidden");
-
-  // Optionally, clear the form fields
   document.getElementById("contactForm").reset();
+});
+
+// Scroll to Top Button
+document.getElementById('scrollToTop').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });

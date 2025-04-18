@@ -20,28 +20,36 @@ function showSection(id) {
 
 // 🔍 Global Search
 document.addEventListener('DOMContentLoaded', function () {
+
   // Global search input
   document.getElementById('globalSearch').addEventListener("input", function () {
     currentQuery = this.value.toLowerCase();
     if (!openDayData) return;
-
+  
+    // If query is empty, show welcome section again
+    if (currentQuery.trim() === "") {
+      showSection("welcome");
+      return;
+    }
+  
     const filteredTopics = openDayData.topics.map(topic => {
       const topicMatch = topic.name.toLowerCase().includes(currentQuery) || topic.description.toLowerCase().includes(currentQuery);
       const filteredPrograms = topic.programs.filter(program =>
         program.title.toLowerCase().includes(currentQuery) ||
         (program.location && program.location.title.toLowerCase().includes(currentQuery))
       );
-
+  
       return {
         ...topic,
         programs: topicMatch ? topic.programs : filteredPrograms
       };
     }).filter(t => t.programs.length > 0);
-
+  
     showSection('subjects');
     renderSubjects(filteredTopics);
     renderAllEvents(filteredTopics);
   });
+  
 
   // Event-specific search input
   document.getElementById("searchInput").addEventListener("input", function () {

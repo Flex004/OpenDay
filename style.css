@@ -39,4 +39,29 @@ body {
     padding: 10px;
     border-left: 4px solid #007acc;
   }
-  
+
+  /* Refresh Button Style */
+.refresh-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+  background-color: #45a049; /* Darker green when hovered */
+  transform: scale(1.1);
+}
+
+.refresh-btn:focus {
+  outline: none; /* Remove outline on focus */
+}
+

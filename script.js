@@ -7,7 +7,7 @@ fetch("OpenDay.json")
   .then(data => {
     openDayData = data;
     renderSubjects(data.topics);
-    showSection("events");
+    showSection("welcome");
     renderAllEvents(data.topics);
   })
   .catch(err => console.error("Failed to load JSON:", err));

@@ -21,11 +21,11 @@ OpenDay.json
 Open index.html in your browser.
 
 Below are screenshots showing the welcome page, subjects, events and demonstrating the functionality of the website.
+<img width="1792" alt="Screenshot 2025-04-19 at 10 00 28" src="https://github.com/user-attachments/assets/d24feb2b-2152-4783-a0ea-15f1dda08a76" />
+<img width="1792" alt="Screenshot 2025-04-19 at 10 00 35" src="https://github.com/user-attachments/assets/95a77d9a-f611-41eb-bed2-873c41144025" />
+<img width="1792" alt="Screenshot 2025-04-19 at 10 00 40" src="https://github.com/user-attachments/assets/8007a237-fa24-4a96-bafa-19d60cd03717" />
+<img width="1792" alt="Screenshot 2025-04-19 at 10 02 08" src="https://github.com/user-attachments/assets/74b7e6a2-2056-4500-9403-6b0112320ab5" />
+<img width="1792" alt="Screenshot 2025-04-19 at 10 00 51" src="https://github.com/user-attachments/assets/ab5a907f-8b18-492d-a961-4cd2c55d8dce" />
+<img width="1792" alt="Screenshot 2025-04-19 at 10 01 01" src="https://github.com/user-attachments/assets/1a04ad7b-bf45-4a23-95af-dc7ec394df62" />
+<img width="1792" alt="Screenshot 2025-04-19 at 10 01 07" src="https://github.com/user-attachments/assets/e804387a-96d8-4c44-aae5-09d423308e50" />
 
-<img width="1792" alt="Screenshot 2025-04-19 at 10 00 28" src="https://github.com/user-attachments/assets/bec4e848-4602-4460-a40b-956659b0ddf6" />
-![Uploading Screenshot 2025-04-19 at 10.00.35.png…]()
-![Uploading Screenshot 2025-04-19 at 10.00.40.png…]()
-![Uploading Screenshot 2025-04-19 at 10.02.08.png…]()
-![Uploading Screenshot 2025-04-19 at 10.00.51.png…]()
-![Uploading Screenshot 2025-04-19 at 10.01.01.png…]()
-![Uploading Screenshot 2025-04-19 at 10.01.07.png…]()

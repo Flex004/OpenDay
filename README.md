@@ -1,14 +1,14 @@
 An interactive, responsive web application designed for the Cardiff University Open Day, built as part of a placement interview project. The application showcases subject areas, scheduled events, and a contact form — all aimed at giving prospective students an engaging way to explore the university.
 
-📌 Features
+Features
 
 Global and Event-Specific Search – Quickly find events, subjects, or rooms.
 Dynamic Navigation – Smooth transitions between Welcome, Subjects, and Events sections.
 Subjects Overview – Browse subject areas with cover images and descriptions.
 Event Listings – View scheduled programs with filtering, searching, and sorting.
 Program Details – Detailed view for each event with maps, time, and description.
-Contact Modal – Reach out to the university via a built-in contact form.
-Refresh & Scroll Controls – Easy page refresh and scroll-to-top button.
+Contact – Reach out to the university via a built-in contact form.
+Refresh & scroll buttons – Easy page refresh and scroll-to-top button.
 
 
 To run the project locally:

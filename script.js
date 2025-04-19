@@ -19,6 +19,20 @@ function showSection(id) {
 }
 
 // 🔍 Global Search
+  // Clear search input
+  document.getElementById("clearEventSearch").addEventListener("click", () => {
+    const input = document.getElementById("searchInput");
+    input.value = "";
+    input.dispatchEvent(new Event("input"));
+  });
+
+  // Clear global search input
+  document.getElementById("clearGlobalSearch").addEventListener("click", () => {
+    const input = document.getElementById("globalSearch");
+    input.value = "";
+    input.dispatchEvent(new Event("input"));
+  });
+
 document.addEventListener('DOMContentLoaded', function () {
 
   // Global search input
@@ -226,35 +240,45 @@ function renderAllEventsFromFlatList(filteredPrograms) {
 
 // Sort Functionality
 function sortPrograms(sortBy) {
-  let sortedEvents;
+  currentQuery = "";
+  console.log("Sorting by:", sortBy);
+
+  if (!openDayData) return;
+
+  let flatPrograms = openDayData.topics.flatMap((topic, topicIndex) =>
+    topic.programs.map((program, programIndex) => ({
+      ...program,
+      topicIndex,
+      programIndex,
+      topic: topic.name,
+    }))
+  );
 
   if (sortBy === "time") {
-    // Sort by time: from earliest to latest
-    sortedEvents = openDayData.topics.map(topic => ({
-      ...topic,
-      programs: topic.programs.slice().sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
-    }));
+    flatPrograms.sort((a, b) => new Date(a.start_time) - new Date(b.start_time));
   } else if (sortBy === "location") {
-    // Sort by location: Group by location alphabetically
-    sortedEvents = openDayData.topics.map(topic => ({
-      ...topic,
-      programs: topic.programs.slice().sort((a, b) => {
-        const locationA = a.location ? a.location.title.toLowerCase() : '';
-        const locationB = b.location ? b.location.title.toLowerCase() : '';
-        return locationA.localeCompare(locationB);
-      })
-    }));
+    flatPrograms.sort((a, b) => {
+      const locA = a.location?.title.toLowerCase() || "";
+      const locB = b.location?.title.toLowerCase() || "";
+      return locA.localeCompare(locB);
+    });
   } else if (sortBy === "name") {
-    // Sort by name: Alphabetically by event title
-    sortedEvents = openDayData.topics.map(topic => ({
-      ...topic,
-      programs: topic.programs.slice().sort((a, b) => a.title.localeCompare(b.title))
-    }));
+    flatPrograms.sort((a, b) => a.title.localeCompare(b.title));
   }
 
-  // After sorting, render the events
-  renderAllEvents(sortedEvents);
+  showSection("events");
+
+  const title = document.getElementById("eventSearchTitle");
+  if (title) {
+    title.textContent = `Sorted by: ${sortBy}`;
+  }
+
+  renderAllEventsFromFlatList(flatPrograms);
+
+  const container = document.getElementById("event-list");
+  if (container) container.scrollIntoView({ behavior: "smooth" });
 }
+
 
 // Refresh Button
 document.getElementById("refreshBtn").addEventListener("click", function () {

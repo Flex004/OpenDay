@@ -22,12 +22,11 @@
     <button onclick="showSection('welcome')" class="bg-blue-100 px-4 py-2 rounded hover:bg-blue-200 transition-all duration-300">Welcome</button>
     <button onclick="showSection('subjects')" class="bg-blue-100 px-4 py-2 rounded hover:bg-blue-200 transition-all duration-300">Subjects</button>
     <button onclick="showSection('events')" class="bg-blue-100 px-4 py-2 rounded hover:bg-blue-200 transition-all duration-300">All Events</button>
-    <select id="sortSelect" onchange="renderEvents()" class="ml-auto p-2 border rounded">
-      <option value="">Sort by</option>
-      <option value="name">Event Name</option>
-      <option value="time">Time</option>
-      <option value="location">Location</option>
-    </select>
+    <select id="sort-select" class="p-2 rounded border">
+      <option value="time">Sort by Time</option>
+      <option value="location">Sort by Location</option>
+      <option value="name">Sort by Name</option>
+    </select>    
   </div>
 
   <!-- 🏠 Welcome Section -->
